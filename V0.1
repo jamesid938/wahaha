@@ -1,0 +1,18 @@
+pragma solidity ^0.8.4;
+
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+
+contract MyNFT is ERC721 {
+    uint256 public constant MAX_SUPPLY = 10000;
+    uint256 public nextTokenId = 1;
+
+    constructor() ERC721("wahaha", "WH") {}
+
+    function mint() public payable {
+        require(nextTokenId <= MAX_SUPPLY, "Maximum supply reached");
+        require(msg.value == 0.0002 ether, "Incorrect price");
+
+        _safeMint(msg.sender, nextTokenId);
+        nextTokenId++;
+    }
+}
